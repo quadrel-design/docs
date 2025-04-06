@@ -7,8 +7,12 @@ on:
 jobs:
   github_pages_deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Use Node.js 22.x
@@ -27,4 +31,4 @@ jobs:
           personal_token: ${{ secrets.QUADREL_TOKEN }}
           publish_dir: ./out
           user_name: github-actions-bot
-          user_email: support+actions@_
+          user_email: support+actions@github.com
