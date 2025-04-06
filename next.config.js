@@ -11,5 +11,4 @@ module.exports = withNextra({
     unoptimized: true,
   },
   reactStrictMode: true,
-  swcMinify: true,
 });
