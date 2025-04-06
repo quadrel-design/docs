@@ -4,23 +4,14 @@ const withNextra = require("nextra")({
   themeConfig: "./theme.config.tsx",
 });
 
-const isProduction = process.env.NODE_ENV === "production";
-const basePath = isProduction ? "/docs" : "";
-const assetPrefix = isProduction ? "/docs/" : "";
-
-const nextConfig = {
+module.exports = withNextra({
+  output: "export",           // Wichtig für statisches HTML (next export)
+  basePath: "/docs",          // Damit alle Seiten unter /docs/ laufen
+  assetPrefix: "/docs/",      // Damit CSS/JS richtig geladen wird
   images: {
-    unoptimized: true,
+    unoptimized: true,        // Besser für static export auf GitHub Pages
   },
   reactStrictMode: true,
   swcMinify: true,
-  trailingSlash: true,
-  basePath,
-  assetPrefix,
-  output: "export",
-};
-
-module.exports = {
-  ...withNextra(),
-  ...nextConfig,
-};
+  trailingSlash: true,        // Generiert z. B. docs/page.html statt docs/page/index.html
+});
