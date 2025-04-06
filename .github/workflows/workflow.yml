@@ -25,6 +25,15 @@ jobs:
           yarn install
           yarn export
 
+      - name: Debug QUADREL_TOKEN
+        run: |
+          if [ -z "${{ secrets.QUADREL_TOKEN }}" ]; then
+            echo "❌ QUADREL_TOKEN is NOT set"
+            exit 1
+          else
+            echo "✅ QUADREL_TOKEN is available"
+          fi
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
