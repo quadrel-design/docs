@@ -1,1 +1,30 @@
+name: Deploy
 
+on:
+  push:
+    branches: [main]
+
+jobs:
+  github_pages_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies and export site
+        run: |
+          yarn install
+          yarn export
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.QUADREL_TOKEN }}
+          publish_dir: ./out
+          user_name: github-actions-bot
+          user_email: support+actions@_
