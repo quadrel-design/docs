@@ -21,8 +21,11 @@ jobs:
           yarn export
       - name: Deploy
         run: |
-          git config --global user.name "github-actions-bot"
-          git config --global user.email "support+actions@github.com"
-          yarn deploy -- -t -u "github-actions-bot <support+actions@github.com>" -r "https://x-access-token:${QUADREL_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-        env:
-          QUADREL_TOKEN: ${{ secrets.QUADREL_TOKEN }}
+        git config --global user.name "github-actions-bot"
+        git config --global user.email "support+actions@github.com"
+        yarn gh-pages -d out \
+        -t \
+        -u "github-actions-bot <support+actions@github.com>" \
+        -r "https://x-access-token:${QUADREL_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+    env:
+        QUADREL_TOKEN: ${{ secrets.QUADREL_TOKEN }}
