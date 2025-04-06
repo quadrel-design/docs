@@ -21,7 +21,8 @@ jobs:
           yarn export
       - name: Deploy
         run: |
-          git remote set-url origin https://x-access-token:${QUADREL_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          yarn deploy -- -u "github-actions-bot <support+actions@github.com>"
+          git config --global user.name "github-actions-bot"
+          git config --global user.email "support+actions@github.com"
+          yarn deploy -- -t -u "github-actions-bot <support+actions@github.com>" -r "https://x-access-token:${QUADREL_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
         env:
           QUADREL_TOKEN: ${{ secrets.QUADREL_TOKEN }}
