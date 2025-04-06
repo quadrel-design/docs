@@ -10,22 +10,27 @@ jobs:
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
-      - uses: actions/checkout@v3
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Use Node.js 22.x
         uses: actions/setup-node@v3
         with:
           node-version: 22.x
-      - name: Install dependencies
+
+      - name: Install dependencies and build
         run: |
           yarn install
           yarn export
+
       - name: Deploy
         run: |
-        git config --global user.name "github-actions-bot"
-        git config --global user.email "support+actions@github.com"
-        yarn gh-pages -d out \
-        -t \
-        -u "github-actions-bot <support+actions@github.com>" \
-        -r "https://x-access-token:${QUADREL_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-    env:
-        QUADREL_TOKEN: ${{ secrets.QUADREL_TOKEN }}
+          git config --global user.name "github-actions-bot"
+          git config --global user.email "support+actions@github.com"
+          yarn gh-pages -d out \
+            -t \
+            -u "github-actions-bot <support+actions@github.com>" \
+            -r "https://x-access-token:${QUADREL_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+        env:
+          QUADREL_TOKEN: ${{ secrets.QUADREL_TOKEN }}
