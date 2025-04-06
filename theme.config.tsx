@@ -27,7 +27,6 @@ const config: DocsThemeConfig = {
 
   i18n: [],
 
-  // ✅ Suchfunktion aktivieren:
   search: {
     placeholder: "Search...",
   },
