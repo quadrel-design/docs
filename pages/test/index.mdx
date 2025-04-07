@@ -7,26 +7,14 @@ with React component support.
 You can use import and use React components inside your Markdown files like
 this:
 
-export async function Demo() {
-  const mdx = `import { Callout } from 'nextra/components'
 
 **Markdown With React Components**
 
-<Callout emoji="✅">
-  **MDX** (the library), at its core, transforms MDX (the syntax) to JSX. It
-  receives an MDX string and outputs a _JSX string_. It does this by parsing the
-  MDX document to a syntax tree and then generates a JSX document from that
-  tree.
-</Callout>`
   const rawJs = await compileMdx(`~~~mdx filename="example.mdx"
 ${mdx}
 ~~~
 
-Generates:
 
-${mdx}`)
-  return <MDXRemote compiledSource={rawJs} components={{ Callout }} />
-}
 
 <Demo />
 
@@ -142,14 +130,4 @@ Nested quotes:
 | Paragraph     |    Text     |    And more |
 | Strikethrough |             |    ~~Text~~ |
 
-## React Components
 
-React components and Markdown can be **mixed together**, for instance:
-
-```mdx
-<Callout>Give [**Nextra**](https://github.com/shuding/nextra) a star!</Callout>
-```
-
-Renders:
-
-<Callout>Give [**Nextra**](https://github.com/shuding/nextra) a star!</Callout>
