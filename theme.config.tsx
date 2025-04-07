@@ -17,13 +17,26 @@ const config: DocsThemeConfig = {
   },
 
   head: () => (
-    <Head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="description" content="Quadrel Documentation" />
-      <meta property="og:title" content="Quadrel Docs" />
-      <meta property="og:url" content="https://quadrel-design.github.io/docs" />
-      <meta property="og:type" content="website" />
-    </Head>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Quadrel Documentation" />
+        <meta property="og:title" content="Quadrel Docs" />
+        <meta property="og:url" content="https://quadrel-design.github.io/docs" />
+        <meta property="og:type" content="website" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+          rel="stylesheet"
+        />
+        <style>{`
+          :root {
+            --font-sans: 'Inter', sans-serif;
+          }
+        `}</style>
+      </Head>
+    </>
   ),
 
   feedback: {
