@@ -30,7 +30,35 @@ const config: DocsThemeConfig = {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
           rel="stylesheet"
         />
-        <style>{`
+    <style>{`
+  @font-face {
+    font-family: 'Inter';
+    src: url('/fonts/inter-reg.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('/fonts/inter-reg-italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('/fonts/inter-bold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Inter';
+    src: url('/fonts/inter-bold-italic.woff2') format('woff2');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
   html {
     font-family: 'Inter', sans-serif;
   }
