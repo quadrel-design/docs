@@ -6,8 +6,13 @@ export const Logo = () => {
     <img
       src={`${basePath}/logo.png`}
       alt="Logo"
-      height={32}
-      style={{ verticalAlign: 'middle' }}
+      style={{
+        height: '32px',
+        maxHeight: '32px',
+        width: 'auto',
+        verticalAlign: 'middle',
+        objectFit: 'contain',
+      }}
     />
   );
 };
