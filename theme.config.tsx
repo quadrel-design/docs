@@ -31,10 +31,10 @@ const config: DocsThemeConfig = {
           rel="stylesheet"
         />
         <style>{`
-          :root {
-            --font-sans: 'Inter', sans-serif;
-          }
-        `}</style>
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+`}</style>
       </Head>
     </>
   ),
