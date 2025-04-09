@@ -1,4 +1,5 @@
 {
-  "index": "Introduction",
+  "index": "Welcome",
+  "components": "Components",
   "test": "UX Architecture"
 }
