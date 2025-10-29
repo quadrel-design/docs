@@ -1,5 +1,4 @@
 name: Deploy
-
 on:
   push:
     branches: [main]
@@ -12,27 +11,32 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
 
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
           cache: yarn
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      # CI-seitig sicherstellen, dass next-seo v6 verwendet wird (Workaround, bis im Repo gepinnt)
+      - name: Force next-seo v6
+        run: |
+          yarn add -E next-seo@6.8.0
+          node -e "const v=require('next-seo/package.json').version; if(!/^6\./.test(v)){console.error('next-seo != 6.x:', v); process.exit(1)}"
 
-      - name: Build static site
+      - name: Install deps
+        run: yarn install
+
+      - name: Build (static export)
         run: yarn build
 
-      - name: Upload artifact for deployment
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
@@ -42,9 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
+      url: ${{ steps.deploy.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deploy
         uses: actions/deploy-pages@v4
