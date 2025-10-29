@@ -4,8 +4,13 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  github_pages_deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,31 +18,33 @@ jobs:
         uses: styfle/cancel-workflow-action@0.9.1
 
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Use Node.js 22.x
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 22.x
+          node-version: 20.x
+          cache: yarn
 
-      - name: Install dependencies and export site
-        run: |
-          yarn install
-          yarn export
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-      - name: Debug QUADREL_TOKEN
-        run: |
-          if [ -z "${{ secrets.QUADREL_TOKEN }}" ]; then
-            echo "❌ QUADREL_TOKEN is NOT set"
-            exit 1
-          else
-            echo "✅ QUADREL_TOKEN is available"
-          fi
+      - name: Build static site
+        run: yarn build
 
+      - name: Upload artifact for deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.QUADREL_TOKEN }}
-          publish_dir: ./out
-          user_name: github-actions-bot
-          user_email: support+actions@github.com
+        id: deployment
+        uses: actions/deploy-pages@v4
