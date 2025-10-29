@@ -24,16 +24,16 @@ jobs:
           node-version: 20.x
           cache: yarn
 
-      # CI-seitig sicherstellen, dass next-seo v6 verwendet wird (Workaround, bis im Repo gepinnt)
-      - name: Force next-seo v6
+      # Optional, bis im Repo gepinnt: erzwingt 6.x ohne Lockfile dauerhaft zu verändern
+      - name: Ensure next-seo 6.x
         run: |
-          yarn add -E next-seo@6.8.0
+          yarn add -E next-seo@6.8.0 --non-interactive
           node -e "const v=require('next-seo/package.json').version; if(!/^6\./.test(v)){console.error('next-seo != 6.x:', v); process.exit(1)}"
 
       - name: Install deps
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
-      - name: Build (static export)
+      - name: Build (static export via webpack)
         run: yarn build:webpack
 
       - name: Upload artifact
