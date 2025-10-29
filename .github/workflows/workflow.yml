@@ -33,8 +33,8 @@ jobs:
       - name: Install deps
         run: yarn install --frozen-lockfile
 
-      - name: Build (static export via webpack)
-        run: yarn build:webpack
+      - name: Build (static export)
+      run: yarn build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
