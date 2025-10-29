@@ -34,7 +34,7 @@ jobs:
         run: yarn install
 
       - name: Build (static export)
-        run: yarn build
+        run: yarn build:webpack
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
